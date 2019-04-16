@@ -9,6 +9,9 @@
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": "10.x"
+  },
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.11"
