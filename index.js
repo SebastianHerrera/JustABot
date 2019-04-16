@@ -29,9 +29,22 @@ client.on("message", async message =>{
         //console.log("Mensaje ignorado")
         return;
     }else{
+        //EN caso de que el mensaje si contenga el prefijo
         console.log("Mensaje resivido");
     }
+    
+    //Dividimos el mensaje en dos, la orden y los parametros.
+    
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
 
+    if(command === "ping") {
+        // Esto sirve para medir la latencia del bot, con respecto al servidor, al mommento de decirle "Ping" el responderá con un "Ping?".
+        // & por ulrimo edita el anterior mensaje con un "Pong", mostrando la latencia entre los dos. 
+        const m = await message.channel.send("Ping?");
+        m.edit(`Pong! La latencia es de ${m.createdTimestamp - message.createdTimestamp}ms, La latencia de la API es de: ${Math.round(client.ping)}ms`);
+    
+    }
 });
 
 client.login(config.token);
