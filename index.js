@@ -3,19 +3,12 @@ const client = new Discord.Client();
 
 const config = require("./config.json");
 
-client.music = require("discord.js-musicbot-addon");
-
-
 //Esta variable sirve para identificar en que modo está el BOT  
 //TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
 //FALSE: El bot está disponible, y es libre para todo publico
 var devStatus = true;
 
-client.music.start(client, {
-    // Set the api key used for YouTube.
-    // This is required to run the bot.
-    youtubeKey: "AIzaSyCjkT1GUWTjyN_eXlBKwIB6z_gnDKPyHdU"
-  });
+
 
 client.on("ready", () => {
     // Este es el evento que se ejecuta cuando el bot es iniciado con exito
@@ -131,6 +124,46 @@ client.on("message", async message =>{
 
         message.channel.bulkDelete(fetched).catch(error => message.reply(`No pude eliminar los mensajes, porque: ${error}`));
 
+    }
+
+
+    if (command === 'avatar') {
+        if (!message.mentions.users.size) {
+
+
+            return embed = {
+                "color": 3824210,
+                "footer": {
+                  "icon_url": `${message.author.displayAvatarURL}`,
+                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
+                },
+                "image": {
+                  "url": `${message.author.displayAvatarURL}`
+                }
+            };
+
+           
+        }
+
+        message.channel.send({ embed });
+        const avatarList = message.mentions.users.map(user => {
+
+            return embed = {
+                "color": 3824210,
+                "footer": {
+                  "icon_url": `${message.author.displayAvatarURL}`,
+                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
+                },
+                "image": {
+                  "url": `${user.displayAvatarURL}`
+                }
+              };
+             
+            
+        });
+
+        message.channel.send({ embed });
+       
     }
 
 
