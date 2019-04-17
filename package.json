@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "discord.js": "^11.4.2",
-    "discord.js-musicbot-addon": "^13.5.1"
+    "discord.js-musicbot-addon": "^13.5.1",
+    "node-opus": "^0.3.1"
   }
 }
