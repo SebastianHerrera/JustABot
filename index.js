@@ -142,10 +142,10 @@ client.on("message", async message =>{
                 }
             };
 
-           
+            message.channel.send({ embed });
         }
 
-        message.channel.send({ embed });
+       
         const avatarList = message.mentions.users.map(user => {
 
             return embed = {
