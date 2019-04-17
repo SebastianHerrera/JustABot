@@ -3,6 +3,11 @@ const client = new Discord.Client();
 
 const config = require("./config.json");
 
+//Esta variable sirve para identificar en que modo está el BOT  
+//TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
+//FALSE: El bot está disponible, y es libre para todo publico
+var devStatus = true;
+
 
 
 client.on("ready", () => {
@@ -10,7 +15,14 @@ client.on("ready", () => {
     console.log(`Bot iniciado, con ${client.users.size} usuarios, en ${client.channels.size} canales de ${client.guilds.size} servers.`); 
     // Cambiar la actividad del bot, en el mommento que se  ejecuta
     client.user.setActivity(`Para llamarme usa "-"`);
+
+
+    if (devStatus) {
+        client.user.setActivity(`MODO DESARROLADOR`);
+    }
 });
+
+
 
 client.on("guildCreate", guild => {
     // Este envento se ejecuta cuando el bot se une en un nuevo servidor, "guildCreate"
@@ -49,9 +61,55 @@ client.on("message", async message =>{
         // Esto sirve para medir la latencia del bot, con respecto al servidor, al mommento de decirle "Ping" el responderá con un "Ping?".
         // & por ulrimo edita el anterior mensaje con un "Pong", mostrando la latencia entre los dos. 
         const m = await message.channel.send("Ping?");
-        m.edit(`Pong! La latencia es de ${m.createdTimestamp - message.createdTimestamp}ms, La latencia de la API es de: ${Math.round(client.ping)}ms`);
+        m.edit(`Pong! La latencia es de ${m.createdTimestamp - message.createdTimestamp}ms, La latencia de la API es de: ${Math.round(client.ping)}ms.`);
     
     }
+
+    //Verificar el estado del BOT
+    if (command === "stado") {
+        ///En caso de que el BOT esté en modo de desarrolo
+        if (devStatus) {
+            const embed = {
+                "title": "EL BOT ESTÁ EN MODO DE DESARROLLO",
+                "description": "Se está desarrollando nuevas carácteristicas al bot o solucionando algunos bugs, y por tanto no deberia de ser usado.",
+                "color": 13632027,
+                "timestamp": "2019-04-17T01:44:57.951Z",
+                "footer": {
+                  "icon_url": "https://i.imgur.com/tGKDeCQ.jpg",
+                  "text": "Bot by: Sebastian Beleño"
+                },
+                "thumbnail": {
+                  "url": "https://cdn3.iconfinder.com/data/icons/chat-bot-glyph-silhouettes-1/300/14119905Untitled-3-512.png"
+                },
+                "author": {
+                  "name": "Sebastian Beleño",
+                  "url": "https://sebasbeleno.000webhostapp.com/",
+                  "icon_url": "https://i.imgur.com/tGKDeCQ.jpg"
+                }
+              };
+              message.channel.send({ embed });
+        }else{
+            const embed = {
+                "title": "BOT DISPONIBLE",
+                "description": "El bot está en su versión mas reciente '1,2' y está abierto para el uso publico :D",
+                "color": 8311585,
+                "timestamp": "2019-04-17T01:44:57.951Z",
+                "footer": {
+                  "icon_url": "https://i.imgur.com/tGKDeCQ.jpg",
+                  "text": "Bot by: Sebastian Beleño"
+                },
+                "thumbnail": {
+                  "url": "https://cdn3.iconfinder.com/data/icons/chat-bot-glyph-silhouettes-1/300/14119905Untitled-3-512.png"
+                },
+                "author": {
+                  "name": "Sebastian Beleño",
+                  "url": "https://sebasbeleno.000webhostapp.com/",
+                  "icon_url": "https://i.imgur.com/tGKDeCQ.jpg"
+                }
+              };
+              message.channel.send({ embed });
+        }
+    }   
 
     //Borra los mensajes en un numero expecifico dado por el usuario
     if (command === "purga") {
@@ -66,6 +124,46 @@ client.on("message", async message =>{
 
         message.channel.bulkDelete(fetched).catch(error => message.reply(`No pude eliminar los mensajes, porque: ${error}`));
 
+    }
+
+
+    if (command === 'avatar') {
+        if (!message.mentions.users.size) {
+
+
+            return embed = {
+                "color": 3824210,
+                "footer": {
+                  "icon_url": `${message.author.displayAvatarURL}`,
+                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
+                },
+                "image": {
+                  "url": `${message.author.displayAvatarURL}`
+                }
+            };
+
+           
+        }
+
+        message.channel.send({ embed });
+        const avatarList = message.mentions.users.map(user => {
+
+            return embed = {
+                "color": 3824210,
+                "footer": {
+                  "icon_url": `${message.author.displayAvatarURL}`,
+                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
+                },
+                "image": {
+                  "url": `${user.displayAvatarURL}`
+                }
+              };
+             
+            
+        });
+
+        message.channel.send({ embed });
+       
     }
 
 
