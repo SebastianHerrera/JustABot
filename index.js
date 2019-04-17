@@ -6,7 +6,7 @@ const config = require("./config.json");
 //Esta variable sirve para identificar en que modo está el BOT  
 //TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
 //FALSE: El bot está disponible, y es libre para todo publico
-var devStatus = true;
+var devStatus = false;
 
 
 
