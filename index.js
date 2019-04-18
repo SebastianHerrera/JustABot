@@ -48,8 +48,27 @@ client.on("guildCreate", guild => {
 //EL MALDITO MENSAJE DE Mr.RX2kayer 
 //NO LO VOY A EXPLICAR, COMAN KK >:c
 client.on('guildMemberAdd', member => {
-    member.guild.channels.get('536955514559397899').send(`Bienvenido al server! ${member.user}, Por favor revisa las reglas antes de continuar. Nos vamos ;)`); 
-});
+  
+    let img = member.user.avatarURL;
+    const embed = {
+      "title": `Welcome Stranger,  ${member.user.username}!`,
+      "description": " en este servidor podrás encontrar variedad y gente amable para jugar. Pasate por #comunidad y has nuevos amigos.",
+      "color": 9442302,
+      "footer": {
+        "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png",
+        "text": "Con amor, Beleño <3"
+      },
+      "thumbnail": {
+        "url": `${member.user.avatarURL}`
+      }
+    };
+
+
+    console.log(`${member.user.avatarURL}`);
+
+    member.guild.channels.get('536955514559397899').send({ embed }); 
+    
+  });
 client.on("message", async message =>{
     //Ignora todos los mensaje provenientes de un bot, incluyendolo
     //Esto para evitar los "botception's"
@@ -69,7 +88,6 @@ client.on("message", async message =>{
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-  
 
     // The list of if/else is replaced with those simple 2 lines:
 
@@ -78,9 +96,17 @@ client.on("message", async message =>{
       let commandFile = require(`./commands/${command}.js`);
       commandFile.run(client, message, args);
     } catch (err) {
+      console.log(err)
       message.channel.send("No contré el comando. Puedes ver la lista usando el comando '-comandos'");
     }
 
+    
 });
+
+/*Depuracion*/ 
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.on("debug", (e) => console.info(e));
+
 
 client.login(config.token);

@@ -22,5 +22,7 @@ module.exports.run = async (client, message, args) => {
         .setFooter(`Avatar de ${img.username}#${img.discriminator}`);
         await message.channel.send({ embed });
 
+        console.log(`${img.avatarURL}`);
+
     };
 }
