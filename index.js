@@ -12,16 +12,16 @@ client.music.start(client, {
   youtubeKey: "AIzaSyCjkT1GUWTjyN_eXlBKwIB6z_gnDKPyHdU",
 
 
-    // Make it so anyone in the voice channel can skip the
-    // currently playing song.
-    anyoneCanSkip: true,
+  // Make it so anyone in the voice channel can skip the
+  // currently playing song.
+  anyoneCanSkip: true,
 });
 
 
 //Esta variable sirve para identificar en que modo está el BOT  
 //TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
 //FALSE: El bot está disponible, y es libre para todo publico
-var devStatus = false;
+var devStatus = true;
 
 
 
@@ -33,7 +33,7 @@ client.on("ready", () => {
 
 
     if (devStatus) {
-        client.user.setActivity(`MODO DESARROLADOR`);
+      client.user.setActivity(`MODO DESARROLADOR`);
     }
 });
 
@@ -52,6 +52,8 @@ client.on('guildMemberAdd', member => {
 });
 client.on("message", async message =>{
 
+
+    var mensaje = true;
     
     //Ignora todos los mensaje provenientes de un bot, incluyendolo
     //Esto para evitar los "botception's"
@@ -77,7 +79,8 @@ client.on("message", async message =>{
         // & por ulrimo edita el anterior mensaje con un "Pong", mostrando la latencia entre los dos. 
         const m = await message.channel.send("Ping?");
         m.edit(`Pong! La latencia es de ${m.createdTimestamp - message.createdTimestamp}ms, La latencia de la API es de: ${Math.round(client.ping)}ms.`);
-    
+
+        mensaje = false;
     }
 
     //Verificar el estado del BOT
@@ -124,6 +127,8 @@ client.on("message", async message =>{
               };
               message.channel.send({ embed });
         }
+
+        mensaje = false;
     }   
 
     //Borra los mensajes en un numero expecifico dado por el usuario
@@ -139,50 +144,124 @@ client.on("message", async message =>{
 
         message.channel.bulkDelete(fetched).catch(error => message.reply(`No pude eliminar los mensajes, porque: ${error}`));
 
+
+        mensaje = false;
     }
 
 
     if (command === 'avatar') {
-        if (!message.mentions.users.size) {
+        let img = message.mentions.users.first()
+        if (!img) {
 
-
-            return embed = {
-                "color": 3824210,
-                "footer": {
-                  "icon_url": `${message.author.displayAvatarURL}`,
-                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
-                },
-                "image": {
-                  "url": `${message.author.displayAvatarURL}`
-                }
-            };
-
+            const embed = new Discord.RichEmbed()
+            .setImage(`${message.author.avatarURL}`)
+            .setColor(0x66b3ff)
+            .setFooter(`Avatar de ${message.author.username}#${message.author.discriminator}`);
             message.channel.send({ embed });
-        }
 
-       
-        const avatarList = message.mentions.users.map(user => {
+        } else if (img.avatarURL === null) {
 
-            return embed = {
-                "color": 3824210,
-                "footer": {
-                  "icon_url": `${message.author.displayAvatarURL}`,
-                  "text": `La persona que pidió el avatar es: ${message.author.tag}`
-                },
-                "image": {
-                  "url": `${user.displayAvatarURL}`
-                }
-              };
-             
-            
-        });
+            message.channel.sendMessage("El usuario ("+ img.username +") no tiene avatar!");
 
-        message.channel.send({ embed });
-       
+        } else {
+
+            const embed = new Discord.RichEmbed()
+            .setImage(`${img.avatarURL}`)
+            .setColor(0x66b3ff)
+            .setFooter(`Avatar de ${img.username}#${img.discriminator}`);
+            message.channel.send({ embed });
+
+        };
+        mensaje = false;
     }
 
 
+    if (command === "comandos") {
+      const embed = {
+        "url": "https://sebasbeleno.000webhostapp.com/",
+        "description": "Estos son alunos de los comandos que tenemos disponibles actualmente. Con el tiempo podre aregar más. Besos <3",
+        "color": 9442302,
+        "timestamp": "2019-04-17T23:22:01.581Z",
+        "footer": {
+          "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png",
+          "text": "Bot by: Sebastian Herrera"
+        },
+        "author": {
+          "name": "author name",
+          "url": "https://discordapp.com",
+          "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+        },
+        "fields": [
+          {
+            "name": "stado",
+            "value": "Revisa el estado del bot en el momento, desarrolador o abierto"
+          },
+          {
+            "name": "ping",
+            "value": "Mide la latencia entre el bot y el servidor, y la api de discordjs!"
+          },
+          {
+            "name": "help",
+            "value": "Te dice todos los comandos disponibles para la funcion de poner musica. Hechales un vistaso ;)"
+          },
+          {
+            "name": "avatar {@usuario}",
+            "value": "Te manda el avatar el usuario expecificado"
+          },
+          {
+            "name": "purga {#mensajes}",
+            "value": "Elemina el numero de mensajes expecificado"
+          }
+        ]
+      };
+      message.channel.send({ embed });
+      mensaje = false;
 
+      console.log("im here");
+    }
+
+    if (command === "staff") {
+
+      console.log(args);
+
+      switch (args[0]) {
+        case "k1":
+          message.channel.send("Esté es el mensaje personalizado de @Kaguama");
+          break;
+      
+        default:
+          break;
+      }
+
+      mensaje = false;
+    }
+
+    if (command === "server") {
+        
+      var server = message.guild;
+    
+      const embed = new Discord.RichEmbed()
+      .setThumbnail(server.iconURL)
+      .setAuthor(server.name, server.iconURL)
+      .addField('Nuestro ID:', server.id, true)
+      .addField('Comos de:', server.region, true)
+      .addField('Cumplimos años:', server.joinedAt.toDateString(), true)
+      .addField('El putas de putas es:', server.owner.user.username, true)
+      .addField('Miembros', server.memberCount, true)
+      .addField('Roles', server.roles.size, true)
+      .setColor(0x66b3ff)
+      
+      message.channel.send({ embed });
+
+      mensaje = false;
+    }
+
+    if (mensaje) {
+      message.channel.send("No he reconocido tu mensaje, fuck up. Para ver la lista de mensaje usa '-comandos'");
+    }
+
+
+  
 });
 
 client.login(config.token);
