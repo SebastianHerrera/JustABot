@@ -9,7 +9,7 @@ client.music = require('discord.js-musicbot-addon');
 client.music.start(client, {
   // Set the api key used for YouTube.
   // This is required to run the bot.
-  youtubeKey: "AIzaSyCjkT1GUWTjyN_eXlBKwIB6z_gnDKPyHdU",
+  youtubeKey: "UApiYTKey",
 
 
   // Make it so anyone in the voice channel can skip the
