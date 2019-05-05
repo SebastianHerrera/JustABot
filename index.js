@@ -93,9 +93,7 @@ client.on("message", async message =>{
 
     //Buscamos dentro de la carpeta el comando que el usuario ingresó. Concatenando
 
-    if (command === "play" || command === "skype" ||  command === "volume") {
-        console.log("Alguien puso musicaaaaa");
-    }else{
+ 
       try {
         let commandFile = require(`./commands/${command}.js`);
         commandFile.run(client, message, args);
@@ -103,7 +101,7 @@ client.on("message", async message =>{
         console.log(err)
         message.channel.send("No contré el comando. Puedes ver la lista usando el comando '-comandos'");
       }
-    }
+    
 
   
 
