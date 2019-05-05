@@ -92,13 +92,20 @@ client.on("message", async message =>{
     // The list of if/else is replaced with those simple 2 lines:
 
     //Buscamos dentro de la carpeta el comando que el usuario ingresó. Concatenando
-    try {
-      let commandFile = require(`./commands/${command}.js`);
-      commandFile.run(client, message, args);
-    } catch (err) {
-      console.log(err)
-      message.channel.send("No contré el comando. Puedes ver la lista usando el comando '-comandos'");
+
+    if (command === "play" || command === "skype" ||  command === "volume") {
+        console.log("Alguien puso musicaaaaa");
+    }else{
+      try {
+        let commandFile = require(`./commands/${command}.js`);
+        commandFile.run(client, message, args);
+      } catch (err) {
+        console.log(err)
+        message.channel.send("No contré el comando. Puedes ver la lista usando el comando '-comandos'");
+      }
     }
+
+  
 
     
 });
