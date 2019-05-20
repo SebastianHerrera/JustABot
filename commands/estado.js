@@ -1,6 +1,6 @@
 const Discord = module.require("discord.js");
 
-var devStatus = false;
+var devStatus = true;
 
 module.exports.run = async (client, message, args) => {
      ///En caso de que el BOT esté en modo de desarrolo
@@ -14,9 +14,6 @@ module.exports.run = async (client, message, args) => {
               "icon_url": "https://i.imgur.com/tGKDeCQ.jpg",
               "text": "Bot by: Sebastian Beleño"
             },
-            "thumbnail": {
-              "url": "https://cdn3.iconfinder.com/data/icons/chat-bot-glyph-silhouettes-1/300/14119905Untitled-3-512.png"
-            },
             "author": {
               "name": "Sebastian Beleño",
               "url": "https://sebasbeleno.000webhostapp.com/",
@@ -27,15 +24,12 @@ module.exports.run = async (client, message, args) => {
     }else{
         const embed = {
             "title": "BOT DISPONIBLE",
-            "description": "El bot está en su versión mas reciente '1,2' y está abierto para el uso publico :D",
+            "description": "El bot está en su versión mas reciente '1,3' y está abierto para el uso publico :D",
             "color": 8311585,
             "timestamp": "2019-04-17T01:44:57.951Z",
             "footer": {
               "icon_url": "https://i.imgur.com/tGKDeCQ.jpg",
               "text": "Bot by: Sebastian Beleño"
-            },
-            "thumbnail": {
-              "url": "https://cdn3.iconfinder.com/data/icons/chat-bot-glyph-silhouettes-1/300/14119905Untitled-3-512.png"
             },
             "author": {
               "name": "Sebastian Beleño",

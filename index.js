@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const config = require("./config.json");
+const config = require("./config/config.json");
 
 client.music = require('discord.js-musicbot-addon');
 
@@ -21,7 +21,7 @@ client.music.start(client, {
 //Esta variable sirve para identificar en que modo está el BOT  
 //TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
 //FALSE: El bot está disponible, y es libre para todo publico
-var devStatus = false;
+var devStatus = true;
 
 
 
