@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const chalk = require('chalk');
+
 
 const config = require("./config/config.json");
 
@@ -21,7 +23,7 @@ client.music.start(client, {
 //Esta variable sirve para identificar en que modo está el BOT  
 //TRUE: EL bot está en modo desarrolador, y se les aleta a los usarios del server
 //FALSE: El bot está disponible, y es libre para todo publico
-var devStatus = false;
+var devStatus = true;
 
 
 
@@ -79,10 +81,8 @@ client.on("message", async message =>{
     if(message.content.indexOf(config.prefix) !== 0){
         //console.log("Mensaje ignorado")
         return;
-    }else{
-        //EN caso de que el mensaje si contenga el prefijo
-        console.log("Mensaje resivido");
     }
+    
     
     //Dividimos el mensaje en dos, la orden y los parametros.
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -109,9 +109,9 @@ client.on("message", async message =>{
 });
 
 /*Depuracion*/ 
-client.on("error", (e) => console.error(e));
-client.on("warn", (e) => console.warn(e));
-client.on("debug", (e) => console.info(e));
+client.on("error", (e) => console.error(chalk.gray(e)));
+client.on("warn", (e) => console.warn(chalk.gray(e)));
+client.on("debug", (e) => console.info(chalk.gray(e)));
 
 
 client.login(config.token);

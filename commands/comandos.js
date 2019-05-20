@@ -1,5 +1,4 @@
-const Discord = module.require("discord.js");
-
+6
 module.exports.run = async (client, message, args) => {
     const embed = {
         "url": "https://sebasbeleno.000webhostapp.com/",
