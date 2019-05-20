@@ -1,6 +1,6 @@
 const Discord = module.require("discord.js");
 
-var devStatus = true;
+var devStatus = false;
 
 module.exports.run = async (client, message, args) => {
      ///En caso de que el BOT esté en modo de desarrolo
