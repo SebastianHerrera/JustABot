@@ -10,13 +10,12 @@ module.exports.run = async (client, message, args) => {
           "text": "Bot by: Sebastian Herrera"
         },
         "author": {
-          "name": "author name",
-          "url": "https://discordapp.com",
+          "name": "Justbel",
           "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
         },
         "fields": [
           {
-            "name": "stado",
+            "name": "estado",
             "value": "Revisa el estado del bot en el momento, desarrolador o abierto"
           },
           {
