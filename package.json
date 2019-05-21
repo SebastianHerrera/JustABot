@@ -21,6 +21,7 @@
     "discord.js-musicbot-addon": "^13.5.1",
     "node-opus": "^0.3.1",
     "pyke": "^3.1.0",
+    "random-puppy": "^1.1.0",
     "snekfetch": "^4.0.4"
   }
 }
