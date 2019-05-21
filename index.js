@@ -72,34 +72,25 @@ client.on('guildMemberAdd', member => {
     
   });
 client.on("message", async message =>{
-    //Ignora todos los mensaje provenientes de un bot, incluyendolo
-    //Esto para evitar los "botception's"
+
     if(message.author.bot) return;
 
-    //Ignora todos los mensajes que no contengan nuestro pefijo
-    //EN este caso nuestro pefijo es "-"
+
     if(message.content.indexOf(config.prefix) !== 0){
         //console.log("Mensaje ignorado")
         return;
     }
     
-    
-    //Dividimos el mensaje en dos, la orden y los parametros.
+   
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
 
-    // The list of if/else is replaced with those simple 2 lines:
-
-    //Buscamos dentro de la carpeta el comando que el usuario ingresó. Concatenando
-
- 
       try {
         let commandFile = require(`./commands/${command}.js`);
         commandFile.run(client, message, args);
       } catch (err) {
         console.log(err)
-        message.channel.send("No contré el comando. Puedes ver la lista usando el comando '-comandos'");
       }
     
 

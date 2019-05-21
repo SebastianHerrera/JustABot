@@ -50,7 +50,7 @@ module.exports.run =  (client, message, args) => {
                       "icon_url": `${summoner.profileIconUrl}`,
                       "text": `${summoner.name}`,
                     },
-                    "image": {
+                    "thumbnail": {
                       "url": `${summoner.profileIconUrl}`
                     },
                     "fields": [
