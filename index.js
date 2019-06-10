@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const chalk = require('chalk');
 
-
+const gestor = require('discord-gestor');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database("./mybotdata.sqlite");
 const config = require("./config/config.json");
 
 client.music = require('discord.js-musicbot-addon');
@@ -11,7 +13,7 @@ client.music = require('discord.js-musicbot-addon');
 client.music.start(client, {
   // Set the api key used for YouTube.
   // This is required to run the bot.
-  youtubeKey: "AIzaSyCjkT1GUWTjyN_eXlBKwIB6z_gnDKPyHdU",
+  youtubeKey: "",
 
 
   // Make it so anyone in the voice channel can skip the
@@ -25,7 +27,11 @@ client.music.start(client, {
 //FALSE: El bot está disponible, y es libre para todo publico
 var devStatus = false
 
+let SQL = "CREATE TABLE IF NOT EXISTS usuarios (idusuario TEXT, nivel INTEGER, exp INTEGER)";
 
+db.run(SQL, function(err) {
+    if (err) return console.error(err.message)
+})
 
 client.on("ready", () => {
     // Este es el evento que se ejecuta cuando el bot es iniciado con exito
@@ -85,6 +91,12 @@ client.on("message", async message =>{
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
+    gestor.perfil.editPuntos(message.author.id, 2, (resp, nNivel) => {
+      if (resp) { //esta opcion se activa cuando un usuario subio de nivel
+        message.channel.send('Felicidades subiste al nivel: ' + nNivel);
+      }
+      
+    })
 
       try {
         let commandFile = require(`./commands/${command}.js`);

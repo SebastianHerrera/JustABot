@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
+    "discord-gestor": "^1.1.1",
     "discord.js": "^11.4.2",
     "discord.js-musicbot-addon": "^13.5.1",
     "node-opus": "^0.3.1",
@@ -26,6 +27,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "snekfetch": "^4.0.4",
+    "sqlite3": "^4.0.8",
     "superagent": "^5.0.5"
   }
 }
